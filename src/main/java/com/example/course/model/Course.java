@@ -1,5 +1,8 @@
 package com.example.course.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -22,7 +26,10 @@ public class Course {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private String courseID;
+	private Long courseID;
+	
+	@Transient
+	private Long instructorID;
 	
 	@NotBlank(message="Title is required")
 	@Size(message="Title must be less than 100 characters")
@@ -37,9 +44,8 @@ public class Course {
 	@Column(name="category", nullable = false, length = 50)
 	private String category;
 	
-	@NotBlank(message = "Instructor details is required")
 	@ManyToOne
-	@JoinColumn(name="instructorID", referencedColumnName = "id")
+	@JoinColumn(name="instructorID")
 	private Instructor instructor;
 	
 	@NotBlank(message = "Course Duration is required")
