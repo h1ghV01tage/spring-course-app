@@ -21,6 +21,14 @@ public class CourseService {
 		
 	}
 	
+	//Logic to add a course
+	public Course addCourse(Course course) {
+		
+		return courseRepository.save(course);
+		
+	}
+	
+	
 	//Logic to list all the courses
 	public List<Course> getAllCourses(){
 		
